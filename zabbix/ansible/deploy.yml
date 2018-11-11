@@ -1,0 +1,44 @@
+---
+- name: Deploy Zabbix
+  hosts: zabbix
+  tasks:
+    - name: Add Zabbix Repository
+      apt_repository:
+        repo: deb https://repo.zabbix.com/zabbix/4.0/debian/pool/main/z/zabbix-release/zabbix-release_4.0-2+stretch_all.deb
+        state: present
+        update_cache: yes
+
+    - name: Install application dependencies
+      become: true
+      mysql-server:
+        state: present
+      when: clone.changed
+      notify: configure mysql
+
+    - name: Install Zabbix
+      become: true
+      zabbix-server-mysql:
+        state: present
+      when: clone.changed
+      notify: restart zabbix
+
+    - name: Install Zabbix Front End
+      become: true
+      zabbix-frontend-php:
+        state: present
+      when: clone.changed
+
+  handlers:
+    - name: configure mysql
+      shell: 
+      become: true
+      
+      notify: restart mysql-server
+      
+    - name: restart mysql-server
+      become: true
+      systemd: name=mysqld state=restarted
+
+    - name: restart zabbix
+      become: true
+      systemd: name=zabbix-server state=restarted
