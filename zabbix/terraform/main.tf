@@ -1,3 +1,7 @@
+resource "random_id" "instance_id" {
+  byte_length = 8
+}
+
 resource "google_compute_instance" "zabbix" {
   name         = "${var.instance_name}"
   machine_type = "g1-small"
