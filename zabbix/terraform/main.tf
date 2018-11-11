@@ -3,7 +3,7 @@ resource "random_id" "instance_id" {
 }
 
 resource "google_compute_instance" "zabbix" {
-  name         = "${var.instance_name}"
+  name         = "zabbix-gcp-central-${random_id.instance_id.hex}"
   machine_type = "g1-small"
   zone         = "${var.zone}"
 
