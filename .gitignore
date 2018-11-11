@@ -8,3 +8,5 @@
 # Vagrant
 .vagrant/
 *.log
+
+todo.txt
