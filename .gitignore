@@ -9,4 +9,9 @@
 .vagrant/
 *.log
 
+#todo text file
 todo.txt
+
+#other stuff
+*/__pycache__
+*.pyc
