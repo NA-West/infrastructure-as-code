@@ -30,5 +30,5 @@ resource "google_compute_firewall" "zabbix-web" {
     protocol = "tcp"
     ports    = ["80"]
   }
-  source_ranges = ["73.14.148.211/24"]
+  source_ranges = ["73.14.148.211/32"]
 }
