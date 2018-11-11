@@ -17,13 +17,13 @@ resource "google_compute_instance" "zabbix" {
   }
 }
 
-resource "google_compute_project_metadata" "Dev SSH Key" {
+resource "google_compute_project_metadata" "dev-ssh-key" {
   metadata {
     ssh-keys = "bob:${file("~/.ssh/bob.pub")}" 
   }
 }
 
-resource "google_compute_firewall" "Zabbix Web" {
+resource "google_compute_firewall" "zabbix-web" {
   name    = "allow-zabbix-tcp-80"
   network = "default"
   allow {
