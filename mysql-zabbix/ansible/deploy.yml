@@ -1,0 +1,9 @@
+---
+- name: Deploy mysql
+  hosts: mysqlzabbix
+  tasks:
+
+  handlers:
+    - name: restart mysql-server
+      become: true
+      systemd: name=mysqld state=restarted

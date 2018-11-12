@@ -8,13 +8,6 @@
         state: present
         update_cache: yes
 
-    - name: Install application dependencies
-      become: true
-      mysql-server:
-        state: present
-      when: clone.changed
-      notify: configure mysql
-
     - name: Install Zabbix
       become: true
       zabbix-server-mysql:
@@ -29,16 +22,6 @@
       when: clone.changed
 
   handlers:
-    - name: configure mysql
-      shell: 
-      become: true
-      
-      notify: restart mysql-server
-      
-    - name: restart mysql-server
-      become: true
-      systemd: name=mysqld state=restarted
-
     - name: restart zabbix
       become: true
       systemd: name=zabbix-server state=restarted
